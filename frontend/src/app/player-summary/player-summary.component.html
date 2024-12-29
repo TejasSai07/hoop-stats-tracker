@@ -1,0 +1,40 @@
+<div>
+  <!-- Dropdown to select a player -->
+  <label for="player-select">Select Player:</label>
+  <select id="player-select" (change)="onPlayerSelected($event.target.value)">
+    <option *ngFor="let player of players" [value]="player.id">{{ player.name }}</option>
+  </select>
+</div>
+
+<div *ngIf="!player">
+  <p>Loading player summary data...</p>
+</div>
+
+<div *ngIf="player">
+  <h3>{{ player.name }}</h3>
+  <p>Total Games: {{ totalGames }}</p>
+  <p>Total Points: {{ totalPoints }}</p>
+  <p>Total Assists: {{ totalAssists }}</p>
+
+  <!-- Shots and court diagram -->
+  <div class="court" 
+       [style.width.px]="courtWidth" 
+       [style.height.px]="courtHeight" 
+       style="position: relative; background-image: url('/assets/court_diagram.jpg'); 
+              background-size: contain; 
+              background-repeat: no-repeat; 
+              background-position: center -0.1px;">
+    <svg [attr.width]="courtWidth" [attr.height]="courtHeight" style="position: absolute; top: 0; left: 0;">
+      <!-- Render the shot markers -->
+      <ng-container *ngFor="let shot of shots">
+        <circle 
+          [attr.cx]="getXPosition(shot.x)" 
+          [attr.cy]="getYPosition(shot.y+0.9)" 
+          r="5" 
+          [attr.fill]="shot.isMake ? 'green' : 'red'"
+        />
+      </ng-container>
+    </svg>
+  </div>
+
+</div>

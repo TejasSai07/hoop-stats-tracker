@@ -1,0 +1,21 @@
+<mat-form-field>
+  <mat-label>Select Player ID</mat-label>
+  <mat-select (selectionChange)="onPlayerIdChange($event.value)">
+    <mat-option *ngFor="let player of playerList" [value]="player.id">
+      {{ player.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div *ngIf="playerSummary">
+  <h2>Player Summary JSON:</h2>
+  <pre>{{ playerSummary | json }}</pre>
+</div>
+
+<div *ngIf="!playerSummary && playerId">
+  <p>Loading player summary data...</p>
+</div>
+
+<div *ngIf="!playerId">
+  <p>Please select a player ID to view their summary.</p>
+</div>

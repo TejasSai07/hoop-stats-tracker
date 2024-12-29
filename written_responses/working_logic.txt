@@ -1,0 +1,15 @@
+The normalized database architecture for this app contains interconnected models for teams, players, games, player statistics, and shots, all structured for easy access.
+
+Team Model/Table: This represents basketball teams with fields for Team ID and Name, imported from teams.json. The away_team_id and home_team_id reference the teams playing in a game.
+
+Player Model/Table: This captures player details, including Player ID and Name, allowing us to retrieve player information while keeping stats in the app_playerstats table in check.
+
+Game Model/Table: This records game events, such as date, home team, and away team. The foreign keys away_team_id and home_team_id connect to the Team model, letting us see which teams are playing. The Game records connect to the PlayerStats model through the game_id foreign key, linking player stats to specific games.
+
+Player_Stats Model/Table: This captures individual player performance during games, featuring various stats like points and assists. The game_id foreign key links back to the Game model, enabling queries for player stats by game, while the player_id foreign key connects to the Player model for easy retrieval of individual stats.
+
+Shots Model/Table: This stores info about individual shots taken by players, including coordinates. The player_stats_id foreign key links each shot to specific player stats for a game.
+
+=======
+Can access the final output at http://localhost:8000/api/v1/playerSummary/<player_id>
+>>>>>>> origin/main
